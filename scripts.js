@@ -30,12 +30,14 @@ function preencherTabela(dados) {
 
         const interesseCell = document.createElement("td");
         interesseCell.textContent = licitacao.interesse;
+        interesseCell.classList.add("interesse-cell"); // Classe para identificação
+        interesseCell.dataset.link = licitacao.link; // Armazena o link da licitação
         linha.appendChild(interesseCell);
 
         const anotacaoCell = document.createElement("td");
         anotacaoCell.textContent = licitacao.anotacao;
-        anotacaoCell.classList.add("anotacao-cell"); // Adiciona uma classe identificadora
-        anotacaoCell.dataset.link = licitacao.link; // Salva o link da licitação na célula
+        anotacaoCell.classList.add("anotacao-cell"); // Classe para identificação
+        anotacaoCell.dataset.link = licitacao.link; // Armazena o link da licitação
         linha.appendChild(anotacaoCell);
 
         const objetoCell = document.createElement("td");
@@ -54,7 +56,7 @@ function preencherTabela(dados) {
     });
 }
 
-// ====================== Modal de Edição de Anotação ======================
+// ====================== Modal de Edição ======================
 
 const modal = document.createElement("div");
 modal.id = "modal";
@@ -62,7 +64,7 @@ modal.classList.add("modal");
 modal.innerHTML = `
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Editar Anotação</h2>
+        <h2 id="modal-title">Editar</h2>
         <textarea id="modal-textarea"></textarea>
         <div class="modal-buttons">
             <button id="cancelar">Cancelar</button>
@@ -75,14 +77,24 @@ document.body.appendChild(modal);
 const modalTextarea = document.getElementById("modal-textarea");
 const cancelarBtn = document.getElementById("cancelar");
 const salvarBtn = document.getElementById("salvar");
+const modalTitle = document.getElementById("modal-title");
 let linkAtual = "";
+let tipoEdicao = ""; // Define se está editando 'anotacao' ou 'interesse'
 
-// Evento para abrir a modal ao clicar na célula de anotação
+// Evento para abrir a modal ao clicar nas células de interesse ou anotação
 document.getElementById("dados-tabela").addEventListener("click", function(event) {
-    if (event.target.classList.contains("anotacao-cell")) {
+    if (event.target.classList.contains("anotacao-cell") || event.target.classList.contains("interesse-cell")) {
         modal.style.display = "flex";
         modalTextarea.value = event.target.innerText;
         linkAtual = event.target.dataset.link;
+        
+        if (event.target.classList.contains("anotacao-cell")) {
+            tipoEdicao = "anotacao";
+            modalTitle.innerText = "Editar Anotação";
+        } else {
+            tipoEdicao = "interesse";
+            modalTitle.innerText = "Editar Interesse";
+        }
     }
 });
 
@@ -90,14 +102,21 @@ document.getElementById("dados-tabela").addEventListener("click", function(event
 cancelarBtn.addEventListener("click", () => { modal.style.display = "none"; });
 window.addEventListener("click", event => { if (event.target === modal) modal.style.display = "none"; });
 
-// Salvar a anotação ao clicar no botão "Salvar"
+// Salvar a edição ao clicar no botão "Salvar"
 salvarBtn.addEventListener("click", () => {
-    const novaAnotacao = modalTextarea.value;
+    const novoValor = modalTextarea.value;
+    const urlAPI = tipoEdicao === "anotacao"
+        ? "https://proj-licita-api.onrender.com/atualizar_anotacao"
+        : "https://proj-licita-api.onrender.com/atualizar_interesse";
 
-    fetch("https://proj-licita-api.onrender.com/atualizar_anotacao", {
+    const jsonBody = tipoEdicao === "anotacao"
+        ? { link: linkAtual, anotacao: novoValor }
+        : { link: linkAtual, interesse: novoValor };
+
+    fetch(urlAPI, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ link: linkAtual, anotacao: novaAnotacao })
+        body: JSON.stringify(jsonBody)
     })
     .then(response => response.json())
     .then(data => {
@@ -105,7 +124,10 @@ salvarBtn.addEventListener("click", () => {
         modal.style.display = "none";
 
         // Atualizar a célula correspondente na tabela
-        document.querySelector(`td[data-link="${linkAtual}"]`).innerText = novaAnotacao;
+        const cellToUpdate = document.querySelector(`td[data-link="${linkAtual}"]`);
+        if (cellToUpdate) {
+            cellToUpdate.innerText = novoValor;
+        }
     })
-    .catch(error => console.error("Erro ao atualizar anotação:", error));
+    .catch(error => console.error("Erro ao atualizar:", error));
 });
