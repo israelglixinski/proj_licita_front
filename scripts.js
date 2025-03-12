@@ -123,11 +123,16 @@ salvarBtn.addEventListener("click", () => {
         console.log("Resposta da API:", data);
         modal.style.display = "none";
 
-        // Atualizar a célula correspondente na tabela
-        const cellToUpdate = document.querySelector(`td[data-link="${linkAtual}"]`);
-        if (cellToUpdate) {
-            cellToUpdate.innerText = novoValor;
-        }
+        // Seleciona corretamente a célula a ser atualizada
+        const allCells = document.querySelectorAll(`td[data-link="${linkAtual}"]`);
+        allCells.forEach(cell => {
+            if (tipoEdicao === "anotacao" && cell.classList.contains("anotacao-cell")) {
+                cell.innerText = novoValor;
+            }
+            if (tipoEdicao === "interesse" && cell.classList.contains("interesse-cell")) {
+                cell.innerText = novoValor;
+            }
+        });
     })
     .catch(error => console.error("Erro ao atualizar:", error));
 });
