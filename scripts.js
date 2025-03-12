@@ -1,29 +1,36 @@
-const sidebar       = document.querySelector('.sidebar')    ;   // Selects the sidebar element using its class name
-const menuToggle    = document.querySelector('.menu-toggle');   // Selects the menu toggle element using its class name
-const content       = document.getElementById('content')    ;   // Selects the content element by its ID
-
-menuToggle.addEventListener('click', () => {                    // Adds a click event listener to the menu toggle button
-    sidebar.classList.toggle('hidden');                         // Toggles the 'hidden' class on the sidebar element
-    if (sidebar.classList.contains('hidden')) {                 // Adjusts the margin of the content based on the sidebar's visibility
-        content.style.marginLeft = '20px';                      // Content shifts to the left
-    } else {
-        content.style.marginLeft = '220px';                     // Content adjusts for visible sidebar
-    }
+document.addEventListener("DOMContentLoaded", () => {
+    fetch("https://api-licitacoes.onrender.com/licitacoes") // URL da API
+        .then(response => response.json())
+        .then(data => preencherTabela(data))
+        .catch(error => console.error("Erro ao buscar dados:", error));
 });
 
-function loadPage(pageUrl) {                                    // Function to load a page dynamically into the content element
-    fetch(pageUrl)                                              // Fetches the HTML content from the specified URL
-        .then(response => {
-            if (!response.ok) {                                 // Checks if the response is OK (status 200–299)
-                throw new Error('Error loading page');          // Throws an error if the response is not successful
-            }
-            return response.text();                             // Returns the response as text (HTML content)
-        })
-        .then(html => {
-            content.innerHTML = html;                           // Replaces the inner HTML of the content element with the fetched HTML
-        })
-        .catch(error => {
-            // Displays an error message inside the content element if an error occurs
-            content.innerHTML = `<p>Error loading content: ${error.message}</p>`;
-        });
+function preencherTabela(dados) {
+    const tabelaBody = document.getElementById("dados-tabela");
+
+    dados.forEach(licitacao => {
+        const linha = document.createElement("tr");
+
+        const valorCell = document.createElement("td");
+        valorCell.textContent = licitacao.valor_estimado;
+        linha.appendChild(valorCell);
+
+        const dataCell = document.createElement("td");
+        dataCell.textContent = new Date(licitacao.data_encerramento).toLocaleDateString("pt-BR");
+        linha.appendChild(dataCell);
+
+        const objetoCell = document.createElement("td");
+        objetoCell.textContent = licitacao.objeto;
+        linha.appendChild(objetoCell);
+
+        const detalhesCell = document.createElement("td");
+        const linkDetalhes = document.createElement("a");
+        linkDetalhes.href = licitacao.link_detalhes;
+        linkDetalhes.textContent = "Ver detalhes";
+        linkDetalhes.target = "_blank";
+        detalhesCell.appendChild(linkDetalhes);
+        linha.appendChild(detalhesCell);
+
+        tabelaBody.appendChild(linha);
+    });
 }

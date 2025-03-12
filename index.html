@@ -1,40 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <!-- Sets the character encoding for the document -->
     <meta charset="UTF-8">
-    <!-- Ensures the page is responsive and scales correctly on all devices -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Sets the title of the document, displayed in the browser tab -->
-    <title>Portfolio</title>
-    <!-- Links the external CSS file for styling -->
+    <title>Licitações</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>                                                                        <!-- Header section at the top of the page -->
-        <h1>IG</h1>                                                                 <!-- Displays the title "IG" inside the header -->
+    <header>
+        <h1>Portal de Licitações</h1>
     </header>
-
-    <button class="menu-toggle">☰</button>                                         <!-- Button to toggle the visibility of the sidebar menu -->
-
-    <div class="container">                                                         <!-- Main container for layout -->
-        <nav class="sidebar">                                                       <!-- Sidebar navigation menu -->
-            <ul>
-                <li onclick="loadPage('pages/inicio.html'       )">Início       </li>             
-                <li onclick="loadPage('pages/formacao.html'     )">Formação     </li>         
-                <li onclick="loadPage('pages/profissional.html' )">Profissional </li> 
-                <li onclick="loadPage('pages/contatos.html'     )">Contatos     </li>         
-                <!-- <li onclick="loadPage('pages/projetos.html'     )">Projetos     </li>          -->
-            </ul>
-        </nav>
-        
-        <div class="content" id="content">                                          <!-- Main content area -->
-            <h2>Israel Glixinski, Portifólio.</h2>                                  <!-- Default welcome message -->
-        </br>
-            <p>Sou programador sênior com mais de três anos de experiência em Python, automação e desenvolvimento de APIs REST. Possuo expertise em RPA, Web Scraping e análise de dados, além de sólida experiência com SQL. Trabalho com metodologias ágeis e práticas DevOps, incluindo Docker, Linux e CI/CD. Apaixonado por aprendizado de máquina e novas tecnologias, busco desafios em projetos inovadores.</p>
-        </div>
-    </div>
-
-    <script src="scripts.js"></script>                                              <!-- Links the external JavaScript file for interactivity -->
+    
+    <main>
+        <section id="tabela-licitacoes">
+            <h2>Lista de Licitações</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Valor Estimado</th>
+                        <th>Data de Encerramento</th>
+                        <th>Objeto</th>
+                        <th>Detalhes</th>
+                    </tr>
+                </thead>
+                <tbody id="dados-tabela">
+                    <!-- Dados serão inseridos aqui pelo script -->
+                </tbody>
+            </table>
+        </section>
+    </main>
+    
+    <script src="scripts.js"></script>
 </body>
 </html>
