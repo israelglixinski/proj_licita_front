@@ -25,20 +25,20 @@ function preencherTabela(dados) {
         const linha = document.createElement("tr");
 
         const valorCell = document.createElement("td");
-        valorCell.textContent = licitacao.valor_estimado;
+        valorCell.textContent = licitacao.valorTotalEstimado;
         linha.appendChild(valorCell);
 
         const dataCell = document.createElement("td");
-        dataCell.textContent = new Date(licitacao.data_encerramento).toLocaleDateString("pt-BR");
+        dataCell.textContent = new Date(licitacao.dataEncerramentoProposta).toLocaleDateString("pt-BR");
         linha.appendChild(dataCell);
 
         const objetoCell = document.createElement("td");
-        objetoCell.textContent = licitacao.objeto;
+        objetoCell.textContent = licitacao.objetoCompra;
         linha.appendChild(objetoCell);
 
         const detalhesCell = document.createElement("td");
         const linkDetalhes = document.createElement("a");
-        linkDetalhes.href = licitacao.link_detalhes;
+        linkDetalhes.href = licitacao.link;
         linkDetalhes.textContent = "Ver detalhes";
         linkDetalhes.target = "_blank";
         detalhesCell.appendChild(linkDetalhes);
