@@ -32,6 +32,14 @@ function preencherTabela(dados) {
         dataCell.textContent = new Date(licitacao.dataEncerramentoProposta).toLocaleDateString("pt-BR");
         linha.appendChild(dataCell);
 
+        const interesseCell = document.createElement("td");
+        interesseCell.textContent = licitacao.interesse;
+        linha.appendChild(interesseCell);
+
+        const anotacaoCell = document.createElement("td");
+        anotacaoCell.textContent = licitacao.anotacao;
+        linha.appendChild(anotacaoCell);
+
         const objetoCell = document.createElement("td");
         objetoCell.textContent = licitacao.objetoCompra;
         linha.appendChild(objetoCell);
