@@ -63,7 +63,6 @@ modal.id = "modal";
 modal.classList.add("modal");
 modal.innerHTML = `
     <div class="modal-content">
-        <span class="close">&times;</span>
         <h2 id="modal-title">Editar</h2>
         <textarea id="modal-textarea"></textarea>
         <div class="modal-buttons">
