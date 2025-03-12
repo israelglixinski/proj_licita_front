@@ -1,7 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("https://proj-licita-api.onrender.com/lista_final") // URL da API
+    // fetch("https://proj-licita-api.onrender.com/lista_final") // URL da API
+    //     .then(response => response.json())
+    //     .then(data => preencherTabela(data))
+    //     .catch(error => console.error("Erro ao buscar dados:", error));
+    fetch("https://proj-licita-api.onrender.com/lista_final")
         .then(response => response.json())
-        .then(data => preencherTabela(data))
+        .then(data => {
+            console.log("Dados recebidos:", data); // Depuração para verificar o formato
+    
+            // Se a API retornar um objeto com chave 'list_registros', pegamos apenas essa parte
+            if (data.list_registros && Array.isArray(data.list_registros)) {
+                preencherTabela(data.list_registros);
+            } else {
+                console.error("A resposta da API não contém a chave 'list_registros' ou não é uma lista.");
+            }
+        })
         .catch(error => console.error("Erro ao buscar dados:", error));
 });
 
