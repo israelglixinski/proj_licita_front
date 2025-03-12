@@ -135,3 +135,44 @@ salvarBtn.addEventListener("click", () => {
     })
     .catch(error => console.error("Erro ao atualizar:", error));
 });
+
+function filtrarTabela() {
+    let input = document.getElementById("filtro-tabela");
+    let filtro = input.value.toLowerCase();
+    let tabela = document.getElementById("dados-tabela");
+    let linhas = tabela.getElementsByTagName("tr");
+
+    for (let i = 0; i < linhas.length; i++) {
+        let colunas = linhas[i].getElementsByTagName("td");
+        let textoLinha = "";
+        
+        for (let j = 0; j < colunas.length; j++) {
+            textoLinha += colunas[j].textContent.toLowerCase() + " ";
+        }
+
+        if (textoLinha.includes(filtro)) {
+            linhas[i].style.display = "";
+        } else {
+            linhas[i].style.display = "none";
+        }
+    }
+}
+
+function filtrarColuna(indiceColuna) {
+    let tabela = document.getElementById("dados-tabela");
+    let linhas = tabela.getElementsByTagName("tr");
+    let input = document.querySelectorAll("thead tr:nth-child(2) th input")[indiceColuna]; // Pega o input correto
+    let filtro = input.value.toLowerCase();
+
+    for (let i = 0; i < linhas.length; i++) {
+        let colunas = linhas[i].getElementsByTagName("td");
+        if (colunas[indiceColuna]) {
+            let texto = colunas[indiceColuna].textContent.toLowerCase();
+            if (texto.includes(filtro)) {
+                linhas[i].style.display = "";
+            } else {
+                linhas[i].style.display = "none";
+            }
+        }
+    }
+}
