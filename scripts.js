@@ -40,7 +40,7 @@ function preencherTabela(dados) {
         const linkDetalhes = document.createElement("a");
         linkDetalhes.href = licitacao.link;
         linkDetalhes.textContent = "Ver detalhes";
-        linkDetalhes.target = "_blank";
+        linkDetalhes.target = licitacao.link;
         detalhesCell.appendChild(linkDetalhes);
         linha.appendChild(detalhesCell);
 
