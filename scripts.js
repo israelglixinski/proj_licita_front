@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    fetch("https://api-licitacoes.onrender.com/licitacoes") // URL da API
+    fetch("https://proj-licita-api.onrender.com/lista_final") // URL da API
         .then(response => response.json())
         .then(data => preencherTabela(data))
         .catch(error => console.error("Erro ao buscar dados:", error));
