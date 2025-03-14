@@ -1,11 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Faz uma requisição para a API e busca a lista de licitações ao carregar a página
     fetch("https://proj-licita-api.onrender.com/lista_final")
         .then(response => response.json())
         .then(data => {
-            console.log("Dados recebidos:", data); // Depuração para verificar o formato
+            console.log("Dados recebidos:", data); // Exibe os dados recebidos no console para depuração
     
             if (data.list_registros && Array.isArray(data.list_registros)) {
-                preencherTabela(data.list_registros);
+                preencherTabela(data.list_registros); // Preenche a tabela com os dados
             } else {
                 console.error("A resposta da API não contém a chave 'list_registros' ou não é uma lista.");
             }

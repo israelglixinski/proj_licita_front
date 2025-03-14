@@ -8,12 +8,12 @@
 
 /* Estilização do corpo da página */
 body {
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #f4f4f4; /* Cor de fundo suave */
+    color: #333; /* Cor do texto principal */
     padding: 20px;
 }
 
-/* Centraliza o conteúdo */
+/* Container centralizado */
 .container {
     max-width: 1000px;
     margin: 0 auto;
@@ -23,7 +23,7 @@ body {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Estilização do título */
+/* Estilização do título principal */
 h1 {
     text-align: center;
     margin-bottom: 20px;
@@ -65,7 +65,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Responsividade */
+/* Estilização para telas menores */
 @media (max-width: 768px) {
     table {
         font-size: 14px;

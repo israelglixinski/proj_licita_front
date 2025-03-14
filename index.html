@@ -4,17 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Licitações</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css"> <!-- Importa o arquivo CSS para estilização da página -->
 </head>
 <body>
     <header>
-        <h1>Portal de Licitações</h1>
+        <h1>Portal de Licitações</h1> <!-- Título da página -->
     </header>
     
     <main>
         <section id="tabela-licitacoes">
             <h2>Lista de Licitações</h2>
             
+            <!-- Tabela para exibir as licitações -->
             <table>
                 <thead>
                     <tr>
@@ -25,6 +26,7 @@
                         <th>Objeto</th>
                         <th>Detalhes</th>
                     </tr>
+                    <!-- Inputs para filtragem de dados por coluna -->
                     <tr>
                         <th><input type="text" onkeyup="filtrarColuna(0)" placeholder="Filtrar..."></th>
                         <th><input type="text" onkeyup="filtrarColuna(1)" placeholder="Filtrar..."></th>
@@ -35,15 +37,12 @@
                     </tr>
                 </thead>
                 <tbody id="dados-tabela">
-                    <!-- Os dados serão preenchidos via JavaScript -->
+                    <!-- Os dados serão preenchidos dinamicamente via JavaScript -->
                 </tbody>
             </table>
         </section>
     </main>
     
-
-
-
-    <script src="scripts.js"></script>
+    <script src="scripts.js"></script> <!-- Importa o arquivo JavaScript para funcionalidades da página -->
 </body>
 </html>
